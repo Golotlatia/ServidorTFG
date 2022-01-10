@@ -3,10 +3,12 @@
 
 const express = require('express');
 const session = require('express-session');
-
+const cors = require('cors')
 const restRoutes = require('../routes/REST');
 const userRoutes = require('../routes/userRoute');
 const authRoutes = require('../routes/authRoute');
+
+const connectDb = require("../middleware/connectDb");
 
 const  MongoStore = require('connect-mongo');
 
@@ -15,7 +17,9 @@ class Server {
 
     this.rest='/';
     this.app = express()
+    this.app.use(cors());
     this.routes()
+    connectDb.connectDb();
     
   }
 
